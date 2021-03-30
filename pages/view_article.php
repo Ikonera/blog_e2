@@ -13,7 +13,7 @@
             <h1><?= $article["title"]; ?></h1>
             <h3><?= $article["description"]; ?></h3>
             <p><?= $article["content"]; ?></p>
-            <pre><?= $article["publication_date"]; ?></pre>
+            <pre><?= $article["date"]; ?></pre>
 
             <details open>
             <summary>Commentaires</summary>
@@ -25,16 +25,16 @@
                         <p>
                             
                         <p class="contcom"><?= $comment["content"]; ?></p>
-                        <?php if ((isset($_SESSION["currentSessionId"])) && ($_SESSION["currentSessionPseudo"] == $comment["comment_author_pseudo"])) : ?>
+                        <?php if ((isset($_SESSION["currentSessionId"])) && ($_SESSION["currentSessionPseudo"] == $comment["author"])) : ?>
                             <div id="edComment"><a href="/index.php/page/comment?comment-edition=<?= $comment["comment_id"]; ?>&article=<?= $article["article_id"]; ?>">Editer</a> |
-                            <?php if (((isset($_SESSION["rights"])) && ($_SESSION["rights"] == 2)) OR ($_SESSION["currentSessionPseudo"] == $comment["comment_author_pseudo"])) : ?>
+                            <?php if (((isset($_SESSION["rights"])) && ($_SESSION["rights"] == 2)) OR ($_SESSION["currentSessionPseudo"] == $comment["author"])) : ?>
                                 <a href="/index.php/process/comment?delete-comment=<?= $comment["comment_id"]; ?>">Supprimer</a></div>
                             <?php endif; ?>
                             
                         </p>
                         <?php endif; ?>
                         
-                        <pre><?= $comment["comment_author_pseudo"]; ?> - <i><?= $comment["publication_date"]; ?></i></pre>
+                        <pre><?= $comment["author"]; ?> - <i><?= $comment["date"]; ?></i></pre>
                     </div>
                 <?php } ?>
             <?php endif; ?>

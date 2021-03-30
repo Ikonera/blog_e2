@@ -77,7 +77,7 @@
                 $pseudoExists = $this->_verifManager->verificationPseudo($newPseudo);
                 if (!$pseudoExists)
                 {
-                    $sqlPseudoUpdate = "UPDATE Users SET pseudo=? WHERE user_id=?";
+                    $sqlPseudoUpdate = "UPDATE users SET pseudo=? WHERE user_id=?";
                     $req = $this->_dbCnx->update($sqlPseudoUpdate, [$newPseudo, $_SESSION["currentSessionId"]]);
                     if ($req === True)
                     {
@@ -118,7 +118,7 @@
                 $mailExists = $this->_verifManager->verificationMail($newMailAdress);
                 if (!$mailExists)
                 {
-                    $sqlMailUpdate = "UPDATE Users SET mail_adress=? WHERE user_id=?";
+                    $sqlMailUpdate = "UPDATE users SET email=? WHERE user_id=?";
                     $req = $this->_dbCnx->update($sqlMailUpdate, [$newMailAdress, $_SESSION["currentSessionId"]]);
                     if ($req === True)
                     {
@@ -159,7 +159,7 @@
             }
             else
             {
-                $sqlCurrentPassword = "SELECT password FROM Users WHERE user_id=?";
+                $sqlCurrentPassword = "SELECT password FROM users WHERE user_id=?";
                 $req = $this->_dbCnx->query($sqlCurrentPassword, [$_SESSION["currentSessionId"]]);
                 $currentPassword = $req->fetch();
                 if ((!password_verify($oldPassword, $currentPassword["password"])) || ($newPassword !== $newPasswordVerif))
@@ -171,7 +171,7 @@
                 }
                 else
                 {
-                    $sqlPasswordUpdate = "UPDATE Users SET password=? WHERE user_id=?";
+                    $sqlPasswordUpdate = "UPDATE users SET password=? WHERE user_id=?";
                     $hashedPassword = password_hash($newPasswordVerif, PASSWORD_BCRYPT);
                     $req = $this->_dbCnx->update($sqlPasswordUpdate, [$hashedPassword, $_SESSION["currentSessionId"]]);
                     $this->errors["success"] = "Votre mot de passe à bien été changé !";

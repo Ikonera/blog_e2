@@ -59,7 +59,7 @@
         */
         public function getCategories()
         {
-            $sql = "SELECT * FROM Categories ORDER BY category_id ASC";
+            $sql = "SELECT * FROM categories ORDER BY category_id ASC";
             $req = $this->_dbCnx->query($sql, []);
             return $req;
         }

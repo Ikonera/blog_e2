@@ -14,7 +14,7 @@
     /********************************************
     *   Fonctions qui redirigeront l'utilisateur
     ********************************************/
-    
+
     /**
     * Fonction qui redirigera l'utilisateur vers la page de connection.
     *

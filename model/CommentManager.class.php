@@ -41,7 +41,7 @@
         public function setCommentToArticle(int $articleId)
         {
             $content = $this->_verifManager->securisation($_POST["addComment"]);
-            $sql = "INSERT INTO Comments(comment_author_pseudo, content, comment_article_id, publication_date) VALUES(?,?,?, NOW())";
+            $sql = "INSERT INTO comments(author, content, article_id, date) VALUES(?,?,?, NOW())";
             $req = $this->_dbCnx->insert($sql, [$_SESSION["currentSessionPseudo"], $content, $articleId]);
             if ($req === True) header("Location: ".$_SERVER["HTTP_REFERER"].""); exit;
         }
@@ -59,7 +59,7 @@
         */
         public function getCommentsByArticle(int $articleId)
         {
-            $sql = "SELECT * FROM Comments WHERE comment_article_id=?";
+            $sql = "SELECT * FROM comments WHERE article_id=?";
             $req = $this->_dbCnx->query($sql, [$articleId]);
             return $req;
         }
@@ -72,7 +72,7 @@
         */
         public function getCommentInfosById(int $commentId)
         {
-            $sql = "SELECT * FROM Comments WHERE comment_id=?";
+            $sql = "SELECT * FROM comments WHERE comment_id=?";
             $req = $this->_dbCnx->query($sql, [$commentId]);
             return $req;
         }
@@ -91,7 +91,7 @@
         public function updateComment(int $commentId)
         {
             $content = $this->_verifManager->securisation($_POST["editComment"]);
-            $sql = "UPDATE Comments SET content=? WHERE comment_id=?";
+            $sql = "UPDATE comments SET content=? WHERE comment_id=?";
             $req = $this->_dbCnx->update($sql, [$content, $commentId]);
         }
         
@@ -108,7 +108,7 @@
         */
         public function deleteComment(int $commentId)
         {
-            $sql = "DELETE FROM Comments WHERE comment_id=?";
+            $sql = "DELETE FROM comments WHERE comment_id=?";
             $req = $this->_dbCnx->delete($sql, [$commentId]);
             if ($req) header("Location: ".$_SERVER["HTTP_REFERER"].""); exit;
         }

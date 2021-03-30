@@ -20,7 +20,7 @@
                         </a>
                     </h2>
                     <h3><?= $article["description"]; ?></h3>
-                    <pre><i><?= $article[4]; ?></i> - à <?= $article["publication_date"]; ?></pre>
+                    <pre><i><?= $article[3]; ?></i> - à <?= $article["date"]; ?></pre>
                     <?php if ((isset($_SESSION["rights"]) && ($_SESSION["rights"] == 2))) : ?>
                         <a href="/index.php/process/artcle?delete-article=<?= $article["article_id"]; ?>">Supprimer</a>
                     <?php endif; ?>

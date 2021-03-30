@@ -1,8 +1,9 @@
 <?php
+
     session_start();
     define("ROOT", $_SERVER["DOCUMENT_ROOT"]);
     $pathUrl = $_SERVER["REQUEST_URI"];
-    require_once "./controller/GlobalController.php";
+    require_once "controller/GlobalController.php";
     if (isset($_SESSION["type"]))
     {
         echo $_SESSION["type"];
@@ -110,4 +111,3 @@
     {
         listArticles();
     }
-    

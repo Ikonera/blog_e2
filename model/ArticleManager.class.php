@@ -9,12 +9,12 @@
     class ArticleManager
     {
         /**
-        * @var null $_dbCnx Une fois la classe instanciée, sera un objet de liaison à la base de données.
+        * @var object $_dbCnx Une fois la classe instanciée, sera un objet de liaison à la base de données.
         */
         private $_dbCnx;
         
         /**
-        * @var null $_verifManager Une fois la classe instanciée, sera un objet de la classe VerificationManager.
+        * @var object $_verifManager Une fois la classe instanciée, sera un objet de la classe VerificationManager.
         */
         private $_verifManager;
         
@@ -40,7 +40,7 @@
         */
         public function getArticles()
         {
-            $sql = "SELECT * FROM Articles";
+            $sql = "SELECT * FROM articles";
             $req = $this->_dbCnx->query($sql, []);
             return $req;
         }
@@ -53,7 +53,7 @@
         */
         public function getArticlesFromUser()
         {
-            $sql = "SELECT * FROM Articles WHERE article_author_pseudo=?";
+            $sql = "SELECT * FROM articles WHERE author=?";
             $req = $this->_dbCnx->query($sql, [$_SESSION["currentSessionPseudo"]]);
             return $req;
         }
@@ -66,7 +66,7 @@
         */
         public function getArticleInfosForEdit(int $articleId)
         {
-            $sql = "SELECT title, description, content, keywords FROM Articles WHERE article_id=?";
+            $sql = "SELECT title, description, content, keywords FROM articles WHERE article_id=?";
             $req = $this->_dbCnx->query($sql, [$articleId]);
             return $req;
         }
@@ -79,7 +79,7 @@
         */
         public function getArticleViewById(int $articleId)
         {
-            $sql = "SELECT * FROM Articles WHERE article_id=?";
+            $sql = "SELECT * FROM articles WHERE article_id=?";
             $req = $this->_dbCnx->query($sql, [$articleId]);
             return $req;
         }
@@ -104,7 +104,7 @@
             $categoryId = $this->_verifManager->securisation($_POST["art_cat"]);
             $keywords = $this->_verifManager->securisation($_POST["art_keywords"]);
 
-            $sql = "INSERT INTO Articles(title, description, content, article_author_pseudo, category_id, keywords, publication_date) VALUES(?,?,?,?,?,?, NOW())";
+            $sql = "INSERT INTO articles(title, description, content, author, category, keywords, date) VALUES(?,?,?,?,?,?, NOW())";
             $req = $this->_dbCnx->insert($sql, [$title, $description, $content, $article_author_pseudo, $categoryId, $keywords]);
         }
         
@@ -126,7 +126,7 @@
             $content = $this->_verifManager->securisation($_POST["ed_content"]);
             $keywords = $this->_verifManager->securisation($_POST["ed_keywords"]);
             // $image = $this->_verifManager->securisation($ed_image);
-            $sql = "UPDATE Articles SET title=?, description=?, content=?, keywords=? WHERE article_id=?";
+            $sql = "UPDATE articles SET title=?, description=?, content=?, keywords=? WHERE article_id=?";
             $req = $this->_dbCnx->update($sql, [$title, $description, $content, $keywords, $articleId]);
         }
         
@@ -143,7 +143,7 @@
         */
         public function deleteArticle(int $articleId)
         {
-            $sql = "DELETE FROM Articles WHERE article_id=?";
+            $sql = "DELETE FROM articles WHERE article_id=?";
             $req = $this->_dbCnx->delete($sql, [$articleId]);
             
             header("Location: ".$_SERVER["HTTP_REFERER"]."");

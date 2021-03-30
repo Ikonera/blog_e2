@@ -36,7 +36,7 @@
         function __construct()
         {
             $this->_host = "localhost";
-            $this->_user = "root";
+            $this->_user = "";
             $this->_pwd = "";
             $this->_base = "blog_e2";
             $this->_dsn = "mysql:dbname=".$this->_base.";host=".$this->_host.";";
@@ -73,7 +73,7 @@
         {
             $stmt = $this->_dbConnect()->prepare($sql);
             $req = $stmt->execute($args);
-            return (!$req) ? $this->dbConnect()->errorCode() : $stmt ;
+            return (!$req) ? $this->_dbConnect()->errorCode() : $stmt ;
         }
         
         /**
@@ -90,7 +90,7 @@
         {
             $stmt = $this->_dbConnect()->prepare($sql);
             $req = $stmt->execute($args);
-            return (!$req) ? $this->dbConnect()->errorCode() : True ;
+            return (!$req) ? $this->_dbConnect()->errorCode() : True ;
         }
         
         /**
@@ -107,7 +107,7 @@
         {
             $stmt = $this->_dbConnect()->prepare($sql);
             $req = $stmt->execute($args);
-            return (!$req) ? $this->dbConnect()->errorCode() : True ;
+            return (!$req) ? $this->_dbConnect()->errorCode() : True ;
         }
         
         /**
@@ -124,7 +124,7 @@
         {
             $stmt = $this->_dbConnect()->prepare($sql);
             $req = $stmt->execute($args);
-            return (!$req) ? $this->dbConnect()->errorCode() : True ;
+            return (!$req) ? $this->_dbConnect()->errorCode() : True ;
         }
         
     }

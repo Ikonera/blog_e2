@@ -51,7 +51,7 @@
         */
         public function verificationPseudo(String $pseudo)
         {
-            $sql = "SELECT pseudo FROM Users WHERE pseudo=?";
+            $sql = "SELECT pseudo FROM users WHERE pseudo=?";
             $req = $this->_dbCnx->query($sql, [$pseudo]);
             return $req->rowCount() == 0 ? False : True ;
         }
@@ -68,7 +68,7 @@
         */
         public function verificationMail(String $mailAdress)
         {
-            $sql = "SELECT user_id FROM Users WHERE mail_adress=?";
+            $sql = "SELECT user_id FROM users WHERE email=?";
             $req = $this->_dbCnx->query($sql, [$mailAdress]);
             return $req->rowCount() == 0 ? False : True ;
         }

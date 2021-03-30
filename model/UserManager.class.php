@@ -56,7 +56,7 @@
             if(empty($errors))
             {
                 $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-                $sql = "INSERT INTO Users(pseudo, name, lastname, mail_adress, password) VALUES(?,?,?,?,?)";
+                $sql = "INSERT INTO users(pseudo, name, lastname, email, password) VALUES(?,?,?,?,?)";
                 $req = $this->_dbCnx->insert($sql, [$pseudo, $name, $lastname, $mailAdress, $hashedPassword]);
                 if ($req)
                 {
@@ -96,7 +96,7 @@
             
             if (empty($connectErrors))
             {
-                $sql = "SELECT user_id, pseudo, mail_adress, password, rights FROM Users WHERE mail_adress=?";
+                $sql = "SELECT user_id, pseudo, email, password, rights FROM users WHERE email=?";
                 $req = $this->_dbCnx->query($sql, [$conMail]);
                 $result = $req->fetch();
                 if (password_verify($conPassword, $result["password"]))
@@ -129,7 +129,7 @@
         */
         public function getAllUsers()
         {
-            $sql = "SELECT user_id, pseudo FROM Users";
+            $sql = "SELECT user_id, pseudo FROM users";
             $req = $this->_dbCnx->query($sql, []);
             return $req;
         }
@@ -142,7 +142,7 @@
         */
         private function _getIdFromUser(String $mailAdress)
         {
-            $sql = "SELECT user_id FROM Users WHERE mail_adress=?";
+            $sql = "SELECT user_id FROM users WHERE email=?";
             $req = $this->_dbCnx->query($sql, [$mailAdress]);
             $value = $req->fetch();
             return $value["user_id"];
@@ -156,7 +156,7 @@
         */
         public function getPseudoFromUser(String $mailAdress)
         {
-            $sql = "SELECT pseudo FROM Users WHERE mail_adress=?";
+            $sql = "SELECT pseudo FROM users WHERE email=?";
             $req = $this->_dbCnx->query($sql, [$mailAdress]);
             $value = $req->fetch();
             return $value["pseudo"];
@@ -175,7 +175,7 @@
         */
         public function deleteUserById(int $userId)
         {
-            $sql = "DELETE FROM Users WHERE user_id=?";
+            $sql = "DELETE FROM users WHERE user_id=?";
             $req = $this->_dbCnx->delete($sql, [$userId]);
             if ($req === True) $_SESSION["deletedUser"] = "Utilisateur supprimé."; header("Location: ".$_SERVER["HTTP_REFERER"].""); exit;
         }
@@ -192,7 +192,7 @@
         */
         public function promoteUserById(int $userId)
         {
-            $sql = "UPDATE Users SET rights=2 WHERE user_id=?";
+            $sql = "UPDATE users SET rights=2 WHERE user_id=?";
             $req = $this->_dbCnx->update($sql, [$userId]);
             if ($req === True) $_SESSION["promotedUser"] = "Utilisateur promu."; header("Location: ".$_SERVER["HTTP_REFERER"].""); exit;
         }

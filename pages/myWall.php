@@ -18,7 +18,7 @@
                     <h2><?= $post["title"]; ?></h2>
                     <h4><?= $post["description"]; ?></h4>
                     <p><?= $post["content"]; ?></p>
-                    <pre><?= $post["publication_date"]; ?></pre>
+                    <pre><?= $post["date"]; ?></pre>
                     <p>
                         <a href="/index.php/page/article?article-edition=<?= $post["article_id"]; ?>">Editer</a> |
                         <a href="/index.php/process/article?delete-article=<?= $post["article_id"]; ?>">Supprimer</a>
